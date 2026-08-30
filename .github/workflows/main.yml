@@ -1,28 +1,23 @@
-name: Build Sonic 3 A.I.R. - Windows
-on:
-  push:
-    branches:
-      - stable
+name: main
+on: [push]
 jobs:
   build:
-    runs-on: windows-2022
+    runs-on: windows-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@main
-      - name: Setup MSBuild
-        uses: microsoft/setup-msbuild@main
-      - name: Build external dependencies
+      - name: checkout
+        uses: actions/checkout@v4
+      - name: setup msbuild
+        uses: microsoft/setup-msbuild@v2
+      - name: build external dependencies
         shell: cmd
         working-directory: framework/external
-        run: |
-          call build_externals_windows.bat
-      - name: Build Sonic 3 A.I.R.
+        run: call build_externals_windows.bat
+      - name: build game
         shell: cmd
         working-directory: Oxygen/sonic3air/build/_vstudio
-        run: |
-          msbuild sonic3air.sln /p:Configuration=Release /p:Platform=x64
-      - name: Upload build
-        uses: actions/upload-artifact@main
+        run: msbuild sonic3air.sln /p:Configuration=Release /p:Platform=x64
+      - name: upload artifact
+        uses: actions/upload-artifact@v4
         with:
-          name: sonic3air-windows
+          name: s3a
           path: .
