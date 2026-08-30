@@ -25,4 +25,4 @@ jobs:
         uses: actions/upload-artifact@main
         with:
           name: sonic3air-windows
-          path: Oxygen/sonic3air/bin/x64/Release/
+          path: .
