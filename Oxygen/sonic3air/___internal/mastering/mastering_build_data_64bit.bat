@@ -13,12 +13,11 @@ mkdir "%outputDir%\data"
 :: Make sure the Release build is up-to-date
 %msbuildPath% build\_vstudio\sonic3air.sln /property:Configuration=Release /property:Platform=x64 -verbosity:minimal
 
-:: 2. Generar definiciones C++ (Espera dinámica a que termine el proceso)
-start /wait "" "bin\Release_x64\Sonic3AIR.exe" -dumpcppdefinitions -nativize
+:: Update auto-generated C++ script binding reference and run script nativization
+"bin\Release_x64\Sonic3AIR.exe" -dumpcppdefinitions -nativize
 
-:: 3. Empaquetar datos (Espera dinámica a que termine el proceso)
-start /wait "" "bin\Release_x64\Sonic3AIR.exe" -pack
-
+:: Build data packages and meta data
+"bin\Release_x64\Sonic3AIR.exe" -pack
 move "enginedata.bin" "%outputDir%\data"
 move "gamedata.bin" "%outputDir%\data"
 move "audiodata.bin" "%outputDir%\data"
