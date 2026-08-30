@@ -2,7 +2,7 @@ name: Build Sonic 3 A.I.R. - Windows
 on:
   push:
     branches:
-      - main
+      - stable
 jobs:
   build:
     runs-on: windows-2022
