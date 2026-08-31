@@ -12,15 +12,10 @@ jobs:
         shell: cmd
         working-directory: framework/external
         run: call build_externals_windows.bat
-      - name: build game
-        shell: cmd
-        working-directory: Oxygen/sonic3air/build/_vstudio
-        run: msbuild sonic3air.sln /p:Configuration=Release /p:Platform=x64 -verbosity:minimal
       - name: Build Mastering
         shell: cmd
         working-directory: Oxygen/sonic3air/___internal/mastering
-        run: |
-          call mastering_windows_64bit.bat
+        run: call mastering_windows_64bit.bat
       - name: upload artifact
         uses: actions/upload-artifact@v4
         with:
